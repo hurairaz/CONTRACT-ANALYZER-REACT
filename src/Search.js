@@ -1,174 +1,198 @@
 import React, { useState } from "react";
 
-export default function Search() {
+function AdvanceSearchCategoryRow({ category_str, searchFields, handleFieldAdd, handleFieldChange, handleFieldRemove }) {
+  const title = category_str.charAt(0).toUpperCase() + category_str.slice(1);
 
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    const [searchFields, setSearchFields] = useState({
-        plainText: '',
-        beforeDate: '',
-        afterDate: '',
-        parties: [''],
-        clauses: [''],
-        terms: [''],
-        companies: [''],
-        divisions: [''],
-        mentionedNames: [''],
-        mentionedSignatures: [''],
-        mentionedWitnesses: [''],
-        dealType: ['']
-
-    });
-
-    const handleSimpleFieldsChange = (field, value) => {
-        setSearchFields(prevState => ({
-            ...prevState, [field]: value,
-        }));
-    };
-
-    const handleFieldAdd = (field) => {
-        setSearchFields(prevState => ({
-            ...prevState, [field]: [...prevState[field], ''],
-        }));
-    };
-
-    const handleFieldChange = (field, index, value) => {
-        const fieldArray = [...searchFields[field]];
-        fieldArray[index] = value;
-        setSearchFields(prevState => ({
-            ...prevState, [field]: fieldArray,
-        }));
-    };
-
-    const handleFieldRemove = (field, index) => {
-        const fieldArray = searchFields[field].filter((_, i) => i !== index);
-        setSearchFields(prevState => ({
-            ...prevState, [field]: fieldArray,
-        }));
-
-    };
-
-    return (
-        <div className="search-section">
-            <div className='container'>
-                <input
-                    type='text'
-                    className='input-field'
-                    placeholder='Search..'
-                    value={searchFields.plainText}
-                    onChange={(e) => handleSimpleFieldsChange('searchText', e.target.value)}
-                />
-                <button><i className='fas fa-search'></i></button>
-            </div>
-
-            <div className='container'>
-                <button
-                    className='advance-search-button'
-                    onClick={() => setIsExpanded(!isExpanded)}
-                >
-                    {isExpanded ? 'Collapse Search' : 'Expand Search'}
-                </button>
-            </div>
-            {isExpanded && (<div className="container">
-                <div className='section'>
-                    <h3>Effective Date</h3>
-                    <h4>Before:</h4>
-                    <input
-                        type='date'
-                        className='input-field'
-                        onChange={(e) => handleSimpleFieldsChange('beforeDate', e.target.value)}
-                    />
-                    <h4>After:</h4>
-                    <input
-                        type='date'
-                        className='input-field'
-                        onChange={(e) => handleInputChange('afterDate', e.target.value)}
-                    />
-                </div>
-                <div className='section'>
-                    <h3>Clauses</h3>
-                    {searchFields.clauses.map((clause, index) => (
-                        <div key={index} className='input-container'>
-                            <input
-                                type='text'
-                                className='input-field'
-                                placeholder='Clause'
-                                value={clause}
-                                onChange={(e) => handleFieldChange('clauses', index, e.target.value)}
-                            />
-                            <button className="remove-button" onClick={() => handleFieldRemove('clauses', index)}>Remove</button>
-                        </div>
-                    ))}
-                    <button className="add-button" onClick={() => handleFieldAdd('clauses')}>Add Another Clause</button>
-                </div>
-                <div className='section'>
-                    <h3>Parties</h3>
-                    {searchFields.parties.map((party, index) => (
-                        <div key={index} className='input-container'>
-                            <input
-                                type='text'
-                                className='input-field'
-                                placeholder='Party'
-                                value={party}
-                                onChange={(e) => handleFieldChange('parties', index, e.target.value)}
-                            />
-                            <button className="remove-button" onClick={() => handleFieldRemove('parties', index)}>Remove</button>
-                        </div>
-                    ))}
-                    <button className="add-button" onClick={() => handleFieldAdd('parties')}>Add Another Party</button>
-                </div>
-                <div className='section'>
-                    <h3>Terms</h3>
-                    {searchFields.terms.map((term, index) => (
-                        <div key={index} className='input-container'>
-                            <input
-                                type='text'
-                                className='input-field'
-                                placeholder='Term'
-                                value={term}
-                                onChange={(e) => handleFieldChange('terms', index, e.target.value)}
-                            />
-                            <button className="remove-button" onClick={() => handleFieldRemove('terms', index)}>Remove</button>
-                        </div>
-                    ))}
-                    <button className="add-button" onClick={() => handleFieldAdd('terms')}>Add Another Term</button>
-                </div>
-                <div className='section'>
-                    <h3>Companies</h3>
-                    {searchFields.companies.map((company, index) => (
-                        <div key={index} className='input-container'>
-                            <input
-                                type='text'
-                                className='input-field'
-                                placeholder='Company'
-                                value={company}
-                                onChange={(e) => handleFieldChange('companies', index, e.target.value)}
-                            />
-                            <button className="remove-button" onClick={() => handleFieldRemove('companies', index)}>Remove</button>
-                        </div>
-                    ))}
-                    <button className="add-button" onClick={() => handleFieldAdd('companies')}>Add Another Company</button>
-                </div>
-                <div className='section'>
-                    <h3>Divisions</h3>
-                    {searchFields.divisions.map((division, index) => (
-                        <div key={index} className='input-container'>
-                            <input
-                                type='text'
-                                className='input-field'
-                                placeholder='Division'
-                                value={division}
-                                onChange={(e) => handleFieldChange('divisions', index, e.target.value)}
-                            />
-                            <button className="remove-button" onClick={() => handleFieldRemove('divisions', index)}>Remove</button>
-                        </div>
-                    ))}
-                    <button className="add-button" onClick={() => handleFieldAdd('divisions')}>Add Another Division</button>
-                </div>
-                <div className="section">
-
-                </div>
-            </div>)}
+  return (
+    <div className='section'>
+      <h3>{title}</h3>
+      {searchFields[category_str].map((element, index) => (
+        <div key={index} className='input-container'>
+          <input
+            type='text'
+            className='input-field'
+            placeholder={category_str}
+            value={element}
+            onChange={(e) => handleFieldChange(category_str, index, e.target.value)}
+          />
+          <button className="remove-button" onClick={() => handleFieldRemove(category_str, index)}>Remove</button>
         </div>
-    );
+      ))}
+      <button className="add-button" onClick={() => handleFieldAdd(category_str)}>Add</button>
+    </div>
+  );
+}
+
+function SearchBar({ searchFields, handleSimpleFieldsChange }) {
+  return (
+    <div className="section">
+      <div className='input-container'>
+        <input
+          type='text'
+          className='input-field'
+          placeholder='Search..'
+          value={searchFields.plainText}
+          onChange={(e) => handleSimpleFieldsChange('plainText', e.target.value)}
+        />
+        <button><i className='fas fa-search'></i></button>
+      </div>
+    </div>
+  );
+}
+
+function AdvanceSearchDateRow({ category_str, handleSimpleFieldsChange }) {
+  const title = category_str === "beforeDate" ? "Before" : "After";
+
+  return (
+    <div className="section">
+      <div className="input-container">
+        <h4>{title}</h4>
+        <input
+          type='date'
+          className='input-field'
+          onChange={(e) => handleSimpleFieldsChange(category_str, e.target.value)}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function Search() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const [searchFields, setSearchFields] = useState({
+    plainText: '',
+    beforeDate: '',
+    afterDate: '',
+    parties: [''],
+    clauses: [''],
+    terms: [''],
+    companies: [''],
+    divisions: [''],
+    mentionedNames: [''],
+    mentionedSignatures: [''],
+    mentionedWitnesses: [''],
+    dealTypes: ['']
+  });
+
+  const handleSimpleFieldsChange = (field, value) => {
+    setSearchFields(prevState => ({
+      ...prevState, [field]: value,
+    }));
+  };
+
+  const handleFieldAdd = (field) => {
+    setSearchFields(prevState => ({
+      ...prevState, [field]: [...prevState[field], ''],
+    }));
+  };
+
+  const handleFieldChange = (field, index, value) => {
+    const fieldArray = [...searchFields[field]];
+    fieldArray[index] = value;
+    setSearchFields(prevState => ({
+      ...prevState, [field]: fieldArray,
+    }));
+    console.log("data: ", searchFields);
+  };
+
+  const handleFieldRemove = (field, index) => {
+    const fieldArray = searchFields[field].filter((_, i) => i !== index);
+    setSearchFields(prevState => ({
+      ...prevState, [field]: fieldArray,
+    }));
+  };
+
+  return (
+    <div className="search-section">
+      <SearchBar
+        searchFields={searchFields}
+        handleSimpleFieldsChange={handleSimpleFieldsChange}
+      />
+
+      <div className='container'>
+        <button
+          className='advance-search-button'
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? 'Collapse Search' : 'Expand Search'}
+        </button>
+      </div>
+      {isExpanded && (
+        <div className="container">
+          <AdvanceSearchDateRow
+            category_str="beforeDate"
+            handleSimpleFieldsChange={handleSimpleFieldsChange}
+          />
+          <AdvanceSearchDateRow
+            category_str="afterDate"
+            handleSimpleFieldsChange={handleSimpleFieldsChange}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="clauses"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="parties"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="terms"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="companies"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="divisions"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="dealTypes"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="mentionedNames"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="mentionedSignatures"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+          <AdvanceSearchCategoryRow
+            category_str="mentionedWitnesses"
+            searchFields={searchFields}
+            handleFieldAdd={handleFieldAdd}
+            handleFieldChange={handleFieldChange}
+            handleFieldRemove={handleFieldRemove}
+          />
+        </div>
+      )}
+    </div>
+  );
 }
