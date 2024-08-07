@@ -23,7 +23,7 @@ function AdvanceSearchCategoryRow({ category_str, searchFields, handleFieldAdd, 
   );
 }
 
-function SearchBar({ searchFields, handleSimpleFieldsChange }) {
+function SearchBar({ searchFields, handleSimpleFieldsChange, handleNlpRequest }) {
   return (
     <div className="section">
       <div className='input-container'>
@@ -32,10 +32,26 @@ function SearchBar({ searchFields, handleSimpleFieldsChange }) {
           className='input-field'
           placeholder='Search..'
           value={searchFields.plainText}
-          onChange={(e) => handleSimpleFieldsChange('plainText', e.target.value)}
+          onChange={(e) => {
+            handleSimpleFieldsChange('finalPlainText', e.target.value);
+            handleNlpRequest(e.target.value);
+          }}
         />
         <button><i className='fas fa-search'></i></button>
       </div>
+    </div>
+  );
+}
+
+function SearchTextSuggestionsRow({ searchTextSuggestions }) {
+  return (
+    <div className="suggestions-section">
+      {searchTextSuggestions.map((suggestion, index) => (
+        <div key={index} className="suggestion-container">
+          <i className='fas fa-search'></i>
+          <p className="suggestion-text">{suggestion}</p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -57,58 +73,22 @@ function AdvanceSearchDateRow({ category_str, handleSimpleFieldsChange }) {
   );
 }
 
-export default function Search() {
+export default function Search({ searchFields, handleSimpleFieldsChange, handleFieldAdd, handleFieldChange, handleFieldRemove, searchTextSuggestions, handleNlpRequest }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const [searchFields, setSearchFields] = useState({
-    plainText: '',
-    beforeDate: '',
-    afterDate: '',
-    parties: [''],
-    clauses: [''],
-    terms: [''],
-    companies: [''],
-    divisions: [''],
-    mentionedNames: [''],
-    mentionedSignatures: [''],
-    mentionedWitnesses: [''],
-    dealTypes: ['']
-  });
-
-  const handleSimpleFieldsChange = (field, value) => {
-    setSearchFields(prevState => ({
-      ...prevState, [field]: value,
-    }));
-  };
-
-  const handleFieldAdd = (field) => {
-    setSearchFields(prevState => ({
-      ...prevState, [field]: [...prevState[field], ''],
-    }));
-  };
-
-  const handleFieldChange = (field, index, value) => {
-    const fieldArray = [...searchFields[field]];
-    fieldArray[index] = value;
-    setSearchFields(prevState => ({
-      ...prevState, [field]: fieldArray,
-    }));
-    console.log("data: ", searchFields);
-  };
-
-  const handleFieldRemove = (field, index) => {
-    const fieldArray = searchFields[field].filter((_, i) => i !== index);
-    setSearchFields(prevState => ({
-      ...prevState, [field]: fieldArray,
-    }));
-  };
 
   return (
     <div className="search-section">
       <SearchBar
         searchFields={searchFields}
         handleSimpleFieldsChange={handleSimpleFieldsChange}
+        handleNlpRequest={handleNlpRequest}
       />
+
+      {searchTextSuggestions.length > 0 && (
+        <SearchTextSuggestionsRow
+          searchTextSuggestions={searchTextSuggestions}
+        />
+      )}
 
       <div className='container'>
         <button
@@ -118,6 +98,7 @@ export default function Search() {
           {isExpanded ? 'Collapse Search' : 'Expand Search'}
         </button>
       </div>
+
       {isExpanded && (
         <div className="container">
           <AdvanceSearchDateRow
@@ -128,69 +109,21 @@ export default function Search() {
             category_str="afterDate"
             handleSimpleFieldsChange={handleSimpleFieldsChange}
           />
-          <AdvanceSearchCategoryRow
-            category_str="clauses"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="parties"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="terms"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="companies"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="divisions"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="dealTypes"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="mentionedNames"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="mentionedSignatures"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
-          <AdvanceSearchCategoryRow
-            category_str="mentionedWitnesses"
-            searchFields={searchFields}
-            handleFieldAdd={handleFieldAdd}
-            handleFieldChange={handleFieldChange}
-            handleFieldRemove={handleFieldRemove}
-          />
+          {Object.entries(searchFields).map(([key, value]) => {
+            if (key !== 'finalPlainText' && key !== 'beforeDate' && key !== 'afterDate') {
+              return (
+                <AdvanceSearchCategoryRow
+                  key={key}
+                  category_str={key}
+                  searchFields={searchFields}
+                  handleFieldAdd={handleFieldAdd}
+                  handleFieldChange={handleFieldChange}
+                  handleFieldRemove={handleFieldRemove}
+                />
+              );
+            }
+            return null;
+          })}
         </div>
       )}
     </div>

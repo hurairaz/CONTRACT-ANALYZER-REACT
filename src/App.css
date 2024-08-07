@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-section {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  /* Space between the two sections */
+  padding: 20px;
+  height: 100vh;
+  /* Full viewport height */
+  box-sizing: border-box;
+}
+
+.pdf-lists-container {
+  flex: 1;
+  /* Allows this section to grow and take available space */
+  max-width: 30%;
+  /* Adjust as needed */
+  border-right: 1px solid #ccc;
+  /* Optional border for separation */
+  padding-right: 20px;
+  /* Space between the border and content */
+}
+
+.pdf-viewer-container {
+  flex: 3;
+  /* Allows this section to take more space */
+  max-width: 70%;
+  /* Adjust as needed */
+  padding-left: 20px;
+  /* Space between the content and edge */
+}
+
+.pdf-item {
+  cursor: pointer;
+  /* Indicate that the item is clickable */
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  /* Optional border between items */
 }
 
-.App-link {
-  color: #61dafb;
+.pdf-item:hover {
+  background-color: #f0f0f0;
+  /* Optional hover effect */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pdf-name {
+  margin-left: 10px;
+  /* Space between icon and text */
 }
