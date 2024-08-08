@@ -15,7 +15,7 @@ function AdvanceSearchCategoryRow({ category_str, searchFields, handleFieldAdd, 
             value={element}
             onChange={(e) => handleFieldChange(category_str, index, e.target.value)}
           />
-          <button className="remove-button" onClick={() => handleFieldRemove(category_str, index)}>Remove</button>
+          <button className="remove-button" onClick={() => handleFieldRemove(category_str, index)}><i class="fa-solid fa-trash"></i></button>
         </div>
       ))}
       <button className="add-button" onClick={() => handleFieldAdd(category_str)}>Add</button>
@@ -37,7 +37,7 @@ function SearchBar({ searchFields, handleSimpleFieldsChange, handleNlpRequest })
             handleNlpRequest(e.target.value);
           }}
         />
-        <button><i className='fas fa-search'></i></button>
+        <button className="search-button"><i className='fas fa-search'></i></button>
       </div>
     </div>
   );
@@ -61,8 +61,8 @@ function AdvanceSearchDateRow({ category_str, handleSimpleFieldsChange }) {
 
   return (
     <div className="section">
+      <h3>{title}</h3>
       <div className="input-container">
-        <h4>{title}</h4>
         <input
           type='date'
           className='input-field'

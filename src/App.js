@@ -1,11 +1,33 @@
 import React, { useState } from 'react';
 import PDFLists from './PDFLists';
 import PDFViewer from './PDFViewer';
-import Search from './Search';  // Import the Search component
+import Search from './Search';
 import './App.css';
+import KeyTerms from './KeyTerms';
+import SearchResults from './SearchResults';
 
 export default function App() {
   const [selectedPdfUrl, setSelectedPdfUrl] = useState(null);
+  const [searchResults, setSearchResults] = useState([
+    { pdfUrl: "/sample.pdf", matchPercentage: "75%" },
+    { pdfUrl: "/sample1.pdf", matchPercentage: "60%" },
+    { pdfUrl: "/sample2.pdf", matchPercentage: "50%" },
+    { pdfUrl: "/sample3.pdf", matchPercentage: "90%" }
+  ]);
+  const [selectedPdfKeyTerms, setSelectedPdfKeyTerms] = useState([
+    "real estate description",
+    "real property",
+    "real",
+    "real estate agent",
+    "real estate property",
+    "real estate purchase",
+    "real estate if",
+    "real property situated",
+    "real estate",
+    "real estate contract",
+    "real estate taxes",
+    "real estate mortgage"
+  ]);
   const [searchFields, setSearchFields] = useState({
     finalPlainText: '',
     beforeDate: '',
@@ -26,20 +48,7 @@ export default function App() {
     '/sample2.pdf',
     '/sample3.pdf'
   ]);
-  const [searchTextSuggestions, setSearchTextSuggestions] = useState([
-    "real estate description",
-    "real property",
-    "real",
-    "real estate agent",
-    "real estate property",
-    "real estate purchase",
-    "real estate if",
-    "real property situated",
-    "real estate",
-    "real estate contract",
-    "real estate taxes",
-    "real estate mortgage"
-  ]);
+  const [searchTextSuggestions, setSearchTextSuggestions] = useState([]);
   const [nlpRequestText, setNlpRequestText] = useState('');
 
   const handlePdfClick = (pdfUrl) => {
@@ -79,14 +88,8 @@ export default function App() {
   };
 
   return (
-    <div className="app-section">
-      <div className="pdf-lists-container">
-        <PDFLists pdfUrls={pdfUrls} onPdfClick={handlePdfClick} />
-      </div>
-      <div className="pdf-viewer-container">
-        {selectedPdfUrl && <PDFViewer pdf_url={selectedPdfUrl} />}
-      </div>
-      <div className="search-container">
+    <div className="app-container">
+      <div className="search-panel">
         <Search
           searchFields={searchFields}
           handleSimpleFieldsChange={handleSimpleFieldsChange}
@@ -96,6 +99,27 @@ export default function App() {
           searchTextSuggestions={searchTextSuggestions}
           handleNlpRequest={handleNlpRequest}
         />
+      </div>
+      <div className='main-content'>
+        <div className='header'>
+          <h1>OwlEyes Contract Analyzer</h1>
+        </div>
+        <div className='content'>
+          <div className='insights-panel'>
+            <div className='key-terms-panel'>
+              <KeyTerms selectedPdfKeyTerms={selectedPdfKeyTerms} selectedPdfUrl={selectedPdfUrl} onPdfClick={handlePdfClick} />
+            </div>
+            <div className='search-results-panel'>
+              <SearchResults searchResults={searchResults} onPdfClick={handlePdfClick} />
+            </div>
+          </div>
+          <div className="pdf-viewer-panel">
+            {selectedPdfUrl && <PDFViewer pdf_url={selectedPdfUrl} />}
+          </div>
+          <div className="pdf-lists-panel">
+            <PDFLists pdfUrls={pdfUrls} onPdfClick={handlePdfClick} />
+          </div>
+        </div>
       </div>
     </div>
   );
