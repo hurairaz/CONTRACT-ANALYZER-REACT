@@ -1,22 +1,152 @@
-.app-section {
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e0f7fa; /* Powder Blue */
+  color: #002349; /* Dark Royal Blue text color */
+}
+
+.app-container {
   display: flex;
-  /* Justify content can be added if necessary */
-  /* justify-content: space-between; */
+  min-height: 100vh;
 }
 
-.search-container {
-  width: 20%;
+.search-panel {
+  width: 15%;
   height: auto;
-  background-color: #D3C5E5;
-  /* Light lavender background */
   border-radius: 8px;
-  /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  padding: 10px;
+  background-color: #b3e5fc; /* Light Powder Blue */
+  color: #002349; /* Dark Royal Blue text color */
 }
 
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #ffffff; /* White background */
+}
+
+.header {
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff; /* White */
+  color: #002349; /* Dark Royal Blue text */
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 2px solid #002349; /* Dark Royal Blue border */
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding: 2px;
+  gap: 2px;
+  background-color: #ffffff; /* White */
+}
+
+.insights-panel {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff; /* White */
+}
+
+.key-terms-section,
+.search-results-section {
+  height: 50%;
+}
+
+.pdf-lists-panel {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  flex: 2;
+  background-color: #ffffff; /* White */
+}
+
+.pdf-viewer-panel {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  flex: 7;
+  background-color: #ffffff; /* White */
+}
+
+.pdf-viewer-section {
+  height: 100%;
+  overflow: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.pdf-lists-section,
+.search-results-section,
+.pdf-keyterms-section {
+  max-height: 600px;
+}
+
+/* Key Terms Styles */
+.key-terms-section {
+  margin-bottom: 20px;
+}
+
+.keyterm-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.keyterm-item:hover {
+  background-color: #f0f4f8; /* Very light powder blue hover effect */
+  box-shadow: 0 4px 8px rgba(0, 23, 55, 0.2); /* Shadowy Royal Blue effect */
+}
+
+.keyterm {
+  font-size: 14px;
+}
+
+/* PDF Lists Styles */
+.pdf-lists-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-lists-section .pdf-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.pdf-item:hover {
+  background-color: #f0f4f8; /* Very light powder blue hover effect */
+  box-shadow: 0 4px 8px rgba(0, 23, 55, 0.2); /* Shadowy Royal Blue effect */
+}
+
+.pdf-name {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+/* Search Styles */
 .search-section {
-  padding: 15px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -25,11 +155,21 @@
 .search-section .section {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
-.search-section .container {
-  display: flex;
-  flex-direction: column;
+.search-section .section .add-button {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  background-color: #002349; /* Dark Royal Blue */
+  color: #ffffff; /* White text for contrast */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-section .section .add-button:hover {
+  transform: scale(1.02);
 }
 
 .search-section .container .advance-search-button {
@@ -38,57 +178,28 @@
   font-size: 18px;
   font-weight: 600;
   border-radius: 8px;
-  background-color: #735DA5;
-  /* Deep purple button background */
-  color: #FFFFFF;
-  /* White text color */
   border: none;
   cursor: pointer;
+  background-color: #002349; /* Dark Royal Blue */
+  color: #ffffff; /* White text for contrast */
   transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
 }
 
 .search-section .container .advance-search-button:hover {
-  background-color: #5E4B8B;
-  /* Slightly darker purple on hover */
   transform: scale(1.02);
-  /* Slight zoom effect on hover */
 }
 
-.search-section .section .input-container {
+.input-container {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.search-section .section .add-button {
-  background-color: #735DA5;
-  /* Matching theme color */
-  color: #FFFFFF;
-  /* White text color */
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 8px 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
-}
-
-.search-section .section .add-button:hover {
-  background-color: #5E4B8B;
-  /* Darker purple on hover */
-  transform: scale(1.02);
-  /* Slight zoom effect on hover */
-}
-
-.input-container .input-field {
+.input-field {
   width: 100%;
   height: 40px;
-  border: 1px solid #B5B7C0;
-  /* Light gray border */
+  border: 1px solid #b5b7c0;
   border-radius: 6px;
   padding: 0 12px;
   font-size: 16px;
@@ -96,138 +207,83 @@
   transition: border-color 0.3s ease;
 }
 
-.input-container .input-field:hover {
+.input-field:hover {
   transform: scale(1.02);
-  /* Slight zoom effect on hover */
 }
 
-.input-container .input-field:focus {
-  border-color: #735DA5;
-  /* Deep purple border on focus */
+.input-field:focus {
+  border-color: #002349; /* Dark Royal Blue */
   outline: none;
-  /* Remove default outline */
 }
 
-.input-container .remove-button {
-  background-color: #735DA5;
-  /* Deep purple background */
-  height: 38px;
+.search-button,
+.remove-button {
   border: none;
+  height: 38px;
   border-radius: 6px;
   cursor: pointer;
   padding: 10px;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
 }
 
-.input-container .remove-button:hover {
-  background-color: #5E4B8B;
-  /* Darker purple on hover */
+.search-button {
+  background-color: #002349; /* Dark Royal Blue */
+  color: #ffffff; /* White text for contrast */
+}
+
+.search-button:hover {
   transform: scale(1.02);
-  /* Slight zoom effect on hover */
 }
 
-.input-container .remove-button .fa-trash {
-  color: #FFFFFF;
-  /* White icon color */
+.remove-button {
+  background-color: #957c3d; /* Gold */
+  color: #ffffff; /* White text for contrast */
 }
 
-.input-container .search-button {
-  background-color: #735DA5;
-  /* Deep purple background */
-  height: 38px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 10px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
-}
-
-.input-container .search-button .fa-search {
-  color: #FFFFFF;
-  /* White icon color */
-}
-
-.input-container .search-button:hover {
-  background-color: #5E4B8B;
-  /* Darker purple on hover */
+.remove-button:hover {
   transform: scale(1.02);
-  /* Slight zoom effect on hover */
 }
 
-.app-container {
-  display: flex;
-  background-color: #D3C5E5;
-  /* Light lavender background */
-  width: 100%;
-  height: auto;
+.search-button .fa-search,
+.remove-button .fa-trash {
+  color: #ffffff; /* White icons */
+}
+
+/* PDF Icon Styles */
+.pdf-icon {
+  color: #002349; /* Dark Royal Blue for PDF icon */
+}
+
+/* Loading and Error Styles */
+.loading-indicator,
+.error {
+  text-align: center;
   padding: 20px;
-  /* Add padding around the container */
+  font-size: 16px;
+  color: #002349; /* Dark Royal Blue text */
 }
 
-.app-container .pdf-viewer-container {
-  width: 70%;
-  height: auto;
-  padding: 25px;
-  background-color: #FFFFFF;
-  /* White background for the PDF viewer area */
-  border-radius: 8px;
-  /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
+.error {
 }
 
-.app-container .pdf-lists-container {
-  width: 25%;
-  height: auto;
-}
-
-.pdf-lists-container .pdf-lists-section {
-  padding: 10px;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.pdf-lists-section .pdf-item {
-  width: 100%;
-  height: 40px;
-  background-color: #FFFFFF;
-  /* White background for PDF items */
-  border: 1px solid #B5B7C0;
-  /* Light gray border */
-  border-radius: 12px;
-  /* Rounded corners */
+/* Result Item Styles */
+.result-item {
   display: flex;
   align-items: center;
-  padding: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  flex-direction: column;
 }
 
-.pdf-lists-section .pdf-item:hover {
-  background-color: #F2F2F2;
-  /* Light gray background on hover */
-  transform: scale(1.02);
-  /* Slight zoom effect on hover */
+.result-item:hover {
+  background-color: #f0f4f8; /* Very light powder blue hover effect */
+  box-shadow: 0 4px 8px rgba(0, 23, 55, 0.2); /* Shadowy Royal Blue effect */
 }
 
-.pdf-item .fa-file-pdf {
-  margin-right: 10px;
-  /* Spacing between icon and text */
-  color: #735DA5;
-  /* Deep purple icon color */
-}
-
-.pdf-item .pdf-name {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333333;
-  /* Dark text color for contrast */
+.result-item .pdf-item {
+  display: flex;
 }

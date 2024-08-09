@@ -19,14 +19,7 @@ export default function App() {
     "real property",
     "real",
     "real estate agent",
-    "real estate property",
-    "real estate purchase",
-    "real estate if",
-    "real property situated",
-    "real estate",
-    "real estate contract",
-    "real estate taxes",
-    "real estate mortgage"
+    "real estate property"
   ]);
   const [searchFields, setSearchFields] = useState({
     finalPlainText: '',

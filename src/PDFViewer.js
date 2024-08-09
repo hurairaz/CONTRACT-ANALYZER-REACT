@@ -26,7 +26,7 @@ export default function PDFViewer({ pdf_url }) {
             {loading && <div className="loading-indicator">Loading...</div>}
             {error && <div className="error">Error: {error}</div>}
 
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.0.279/build/pdf.worker.js">
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js">
                 <Viewer
                     fileUrl={pdf_url}
                     plugins={[

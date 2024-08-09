@@ -1,0 +1,11 @@
+npm install
+npm install @react-pdf-viewer/core
+npm install @react-pdf-viewer/default-layout
+npm install pdfjs-dist@3.0.279
+
+#PowerShell
+Remove-Item -Recurse -Force .\node_modules
+Remove-Item .\package-lock.json
+
+rm -rf node_modules package-lock.json
+

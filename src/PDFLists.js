@@ -12,6 +12,7 @@ export default function PDFLists({ pdfUrls, onPdfClick }) {
 
     return (
         <div className='pdf-lists-section'>
+            <h4>PDFs</h4>
             {pdfUrls.map((pdf_url, index) => (
                 <div key={index} className='pdf-item' onClick={() => onPdfClick(pdf_url)}>
                     <i className="fa-solid fa-file-pdf"></i>

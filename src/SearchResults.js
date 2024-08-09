@@ -17,6 +17,7 @@ export default function SearchResults({ searchResults, onPdfClick }) {
 
     return (
         <div className='search-results-section'>
+            <h4>Search Results</h4>
             {results.map((result, index) => (
                 <div key={index} className='result-item' onClick={() => onPdfClick(result.pdfUrl)}>
                     <div className="pdf-item">
